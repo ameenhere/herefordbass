@@ -1,0 +1,55 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Siege and Such - Statistics powered by Google Charts</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script type="text/javascript"
+	src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+<body>
+	<div align="center" style="width: 1000px;">
+		<h2 th:text="${title}"></h2>
+		<div id="chart_div"></div>
+		<div id="table_div"></div>
+		<div id="piechart" style="width: 900px; height: 500px;"></div>
+	</div>
+	<script th:inline="javascript">
+		var table_data = /*[[${tableData}]]*/'noValue';
+		console.log(table_data);
+
+		$(document).ready(function() {
+			google.charts.load('current', {
+				packages : [ 'corechart', 'bar','table' ]
+			});
+			google.charts.setOnLoadCallback(drawTable);
+		});
+
+	
+		
+		function drawTable() {
+	        var data = new google.visualization.DataTable();
+	        data.addColumn('string', 'Player');
+	        data.addColumn('number', 'Kills');
+	        data.addColumn('number', 'Deaths');
+	        data.addColumn('number', 'K/D');
+	        data.addColumn('number', 'KPR');
+	        data.addColumn('number', 'Headshots');
+	        data.addColumn('number', 'HeadshotPercentage');
+
+	        Object.keys(table_data).forEach(function(key) {
+				data.addRow([ key, table_data[key][0],table_data[key][1],table_data[key][2],table_data[key][3],table_data[key][4],table_data[key][5] ]);
+			});
+
+	        var table = new google.visualization.Table(document.getElementById('table_div'));
+
+	        table.draw(data, {showRowNumber: true, width: '100%', height: '100%'});
+	      }
+
+		
+	</script>
+</body>
+</html>
