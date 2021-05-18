@@ -17,8 +17,8 @@ public class NemesisRowMapper
         throws SQLException
     {
         Nemesis nemesis = new Nemesis();
-        nemesis.setKillerName( rs.getString( "KillerName" ) );
-        nemesis.setVictimName( rs.getString( "VictimName" ) );
+        nemesis.setKillerName( rs.getString( "killer_name" ) );
+        nemesis.setVictimName( rs.getString( "victim_name" ) );
         nemesis.setCount( rs.getLong( "count" ) );
         return nemesis;
     }

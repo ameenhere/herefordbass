@@ -10,14 +10,14 @@ import lombok.Setter;
 @Setter
 public class ProLeagueStyleStat implements Comparable<ProLeagueStyleStat>
 {
-    private static final double OPENING_KILL_COEFFICIENT = 0.031;
-    private static final double OPENING_DEATH_COEFFICIENT = -0.042;
-    private static final double KPR_COEFFICIENT = 0.666;
-    private static final double SRV_COEFFICIENT = 0.261;
-    private static final double KOST_COEFFICIENT = 0.225;
-    private static final double ONE_V_X_COEFFICIENT = 0.066;
-    private static final double PLANT_COEFFICIENT = 0.076;
-    private static final double DEFUSE_COEFFICIENT = 0.033;
+    private static final double OPENING_KILL_COEFFICIENT = 0.004;
+    private static final double OPENING_DEATH_COEFFICIENT = -0.005;
+    private static final double KPR_COEFFICIENT = 0.714;
+    private static final double SRV_COEFFICIENT = 0.492;
+    private static final double KOST_COEFFICIENT = 0.471;
+    private static final double ONE_V_X_COEFFICIENT = 0.026;
+    private static final double PLANT_COEFFICIENT = 0.015;
+    private static final double DEFUSE_COEFFICIENT = 0.019;
 	
 	private String player;
     private long kills;
@@ -52,7 +52,7 @@ public class ProLeagueStyleStat implements Comparable<ProLeagueStyleStat>
 		}
 		kpr = (double) kills / (double) roundsPlayed;
 		kd = (double) kills / (double) deaths;
-		double unroundedRating = ((double)openingKills * OPENING_KILL_COEFFICIENT) + ((double)openingDeaths * OPENING_DEATH_COEFFICIENT) 
+		double unroundedRating = 0.037 + ((double)openingKills * OPENING_KILL_COEFFICIENT) + ((double)openingDeaths * OPENING_DEATH_COEFFICIENT) 
 				+ ((double)kpr * KPR_COEFFICIENT) + ((double)srv * SRV_COEFFICIENT)
 				+((double)kost * KOST_COEFFICIENT) + ((double)oneVxs * ONE_V_X_COEFFICIENT)
 				+((double)plants * PLANT_COEFFICIENT) + ((double)defuses * DEFUSE_COEFFICIENT);
