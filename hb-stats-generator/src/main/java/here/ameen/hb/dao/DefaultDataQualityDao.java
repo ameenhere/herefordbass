@@ -50,9 +50,14 @@ public class DefaultDataQualityDao
                 count = count + jdbcTemplate.update( updateKillerNameQuery, paramMap );
                 count = count + jdbcTemplate.update( updateVictimNameQuery, paramMap );
                 
-                for(int k= 1; k<=10; k++)
+                for(int k= 1; k<=5; k++)
                 {
-                    String query = updatePlayerNameQuery.replaceAll( "playerColumn", "\"Player" + k + "\""  );
+                    String query = updatePlayerNameQuery.replaceAll( "playerColumn", "a" + k  );
+                    count = count + jdbcTemplate.update( query, paramMap );
+                }
+                for(int k= 1; k<=5; k++)
+                {
+                    String query = updatePlayerNameQuery.replaceAll( "playerColumn", "h" + k  );
                     count = count + jdbcTemplate.update( query, paramMap );
                 }
             }

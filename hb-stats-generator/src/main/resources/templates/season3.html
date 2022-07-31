@@ -1,0 +1,221 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Hereford Bass League - Statistics powered by Google
+	Charts</title>
+<style>
+.large-bold-font {
+	font-weight: bold;
+	color: white;
+	font-size: 18px;
+	text-align: center;
+}
+
+.small-bold-font {
+	font-weight: bold;
+	color: white;
+	font-size: 12px;
+	text-align: center;
+}
+
+.medium-font {
+	color: white;
+	font-size: 16px;
+	text-align: center;
+}
+
+.google-visualization-table-table th.headerCellCustom {
+	background-color: grey;
+	border-right: none;
+}
+
+.google-visualization-table-table td.tableCellCustom {
+	background-color: #222222;
+	border-right: none;
+	border-left: none;
+	padding: 6px .35em;
+}
+
+.left-text {
+	text-align: left;
+}
+
+.center-text {
+	text-align: center;
+}
+</style>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script type="text/javascript"
+	src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+<body>
+	<div align="center" style="width: 1280px; height: 1000px">
+		<h2 th:text="${title}"></h2>
+		<div id="chart_div"></div>
+		<div id="table_div"></div>
+		<div id="piechart" style="width: 1280px; height: 1000px;"></div>
+	</div>
+	<script th:inline="javascript">
+		var team1_data = /*[[${team1}]]*/'noValue';
+		var team2_data = /*[[${team2}]]*/'noValue';
+		var team3_data = /*[[${team3}]]*/'noValue';
+		var team4_data = /*[[${team4}]]*/'noValue';
+		var team5_data = /*[[${team5}]]*/'noValue';
+
+		$(document).ready(function() {
+			google.charts.load('current', {
+				packages : [ 'corechart', 'bar', 'table' ]
+			});
+			google.charts.setOnLoadCallback(drawTable);
+		});
+
+		function drawTable() {
+			
+			 var cssClassNames = {
+					    'headerRow': '',
+					    'tableRow': '',
+					    'oddTableRow': '',
+					    'selectedTableRow': '',
+					    'hoverTableRow': '',
+					    'headerCell': 'headerCellCustom small-bold-font',
+					    'tableCell': 'tableCellCustom medium-font',
+					    'rowNumberCell': ''};
+			 
+			var data = new google.visualization.DataTable();
+			data.addColumn('string', 'Player');
+			data.addColumn('number', 'Rating');
+			data.addColumn('string', 'K-D(+/-)');
+			data.addColumn('string', 'Entry(+/-)');
+			data.addColumn('number', 'KOST');
+			data.addColumn('number', 'KPR');
+			data.addColumn('string', 'SRV');
+			data.addColumn('number', '1vX');
+			data.addColumn('number', 'Plants');
+			data.addColumn('string', 'HS%');
+			
+			data.setColumnProperties(1,{'className':'large-bold-font'});
+			data.setColumnProperties(4,{'className':'large-bold-font'});
+			data.setColumnProperties(0,{'className':'large-bold-font left-text'});
+
+			Object.keys(team1_data).forEach(
+					function(key) {
+						data.addRow([ key, team1_data[key][0],
+								team1_data[key][1], team1_data[key][2],
+								team1_data[key][3], team1_data[key][4],
+								team1_data[key][5], team1_data[key][6],
+								team1_data[key][7], team1_data[key][8] ]);
+					});
+
+			if (team2_data != null) {
+				data.addRow([ null, null, null, null, null, null, null, null,
+						null,null ]);
+				Object.keys(team2_data).forEach(
+
+						function(key) {
+							data.addRow([ key, team2_data[key][0],
+									team2_data[key][1], team2_data[key][2],
+									team2_data[key][3], team2_data[key][4],
+									team2_data[key][5], team2_data[key][6],
+									team2_data[key][7], team2_data[key][8] ]);
+						});
+			}
+
+			if (team3_data != null) {
+				data.addRow([ null, null, null, null, null, null, null, null,
+						null,null ]);
+
+				Object.keys(team3_data).forEach(
+						function(key) {
+							data.addRow([ key, team3_data[key][0],
+									team3_data[key][1], team3_data[key][2],
+									team3_data[key][3], team3_data[key][4],
+									team3_data[key][5], team3_data[key][6],
+									team3_data[key][7], team3_data[key][8] ]);
+						});
+			}
+			if (team4_data != null) {
+				data.addRow([ null, null, null, null, null, null, null, null,
+						null,null ]);
+
+				Object.keys(team4_data).forEach(
+						function(key) {
+							data.addRow([ key, team4_data[key][0],
+									team4_data[key][1], team4_data[key][2],
+									team4_data[key][3], team4_data[key][4],
+									team4_data[key][5], team4_data[key][6],
+									team4_data[key][7], team4_data[key][8] ]);
+						});
+			}
+			
+			if (team5_data != null) {
+				data.addRow([ null, null, null, null, null, null, null, null,
+						null,null ]);
+
+				Object.keys(team5_data).forEach(
+						function(key) {
+							data.addRow([ key, team5_data[key][0],
+								team5_data[key][1], team5_data[key][2],
+								team5_data[key][3], team5_data[key][4],
+								team5_data[key][5], team5_data[key][6],
+								team5_data[key][7], team5_data[key][8] ]);
+						});
+			}
+			var formatter = new google.visualization.ColorFormat();
+			formatter.addGradientRange(1.05, 1.57, '#FFFFFF', '#abc052',
+					'#1c7132');
+			formatter.addGradientRange(0.9, 1.05, '#FFFFFF', '#ffad54',
+					'#f8db46');
+			formatter.addGradientRange(0.8, 0.9, '#FFFFFF', '#e87866',
+					'#ffad54');
+			formatter.addGradientRange(0.6, 0.8, '#FFFFFF', '#f0474c',
+					'#e87866');
+			formatter.addGradientRange(0.3, 0.6, '#FFFFFF', '#8B0000',
+					'#f0474c');
+			formatter.addGradientRange(0.0, 0.3, '#FFFFFF', '#000000',
+					'#8B0000');
+			formatter.format(data, 1);
+			
+			var kostFormatter = new google.visualization.ColorFormat();
+			kostFormatter.addGradientRange(0.68, 0.95, '#FFFFFF', '#abc052',
+					'#006400');
+			kostFormatter.addGradientRange(0.62, 0.68, '#FFFFFF', '#ffad54',
+					'#f8db46');
+			kostFormatter.addGradientRange(0.55, 0.62, '#FFFFFF', '#e87866',
+					'#ffad54');
+			kostFormatter.addGradientRange(0.49, 0.55, '#FFFFFF', '#f0474c',
+					'#e87866');
+			kostFormatter.addGradientRange(0.30, 0.49, '#FFFFFF', '#8B0000',
+					'#f0474c');
+			kostFormatter.addGradientRange(0.0, 0.30, '#FFFFFF', '#000000',
+					'#8B0000');
+			kostFormatter.format(data, 4);
+			
+			var kostNumberFormatter = new google.visualization.NumberFormat(
+				    {pattern:'##%'});
+			kostNumberFormatter.format(data, 4); 
+			
+			var formatter2 = new google.visualization.ColorFormat();
+			formatter2.addRange(0, 1, '#222222','#222222');
+			formatter2.addRange(1, 10000000, '#FFFFFF','#222222');
+			formatter2.format(data, 7);
+			formatter2.format(data, 8);
+
+			var table = new google.visualization.Table(document
+					.getElementById('table_div'));
+
+			table.draw(data, {
+				showRowNumber : false,
+				width : '100%',
+				height : '100%',
+				allowHtml : true,
+				alternatingRowStyle: false,
+				'cssClassNames': cssClassNames,
+			});
+		}
+	</script>
+</body>
+</html>
